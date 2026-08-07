@@ -1,0 +1,33 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="trail" x1="32" y1="30" x2="32" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FCD34D"/>
+      <stop offset="1" stop-color="#FCD34D" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="128" height="128" rx="26" fill="url(#bg)"/>
+
+  <!-- subtle inner highlight -->
+  <rect x="2" y="2" width="124" height="124" rx="24" fill="#FFFFFF" opacity="0.04"/>
+
+  <!-- commit trail: connecting line -->
+  <line x1="32" y1="34" x2="32" y2="94" stroke="url(#trail)" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- commit dots, most recent (top) largest and brightest, fading with age -->
+  <circle cx="32" cy="34" r="8.5" fill="#FCD34D"/>
+  <circle cx="32" cy="54" r="6.5" fill="#FCD34D" opacity="0.72"/>
+  <circle cx="32" cy="74" r="5.5" fill="#FCD34D" opacity="0.5"/>
+  <circle cx="32" cy="94" r="4.5" fill="#FCD34D" opacity="0.32"/>
+
+  <!-- code lines, right side -->
+  <rect x="54" y="29" width="46" height="9" rx="4.5" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="54" y="49" width="34" height="9" rx="4.5" fill="#FFFFFF" opacity="0.8"/>
+  <rect x="54" y="69" width="40" height="9" rx="4.5" fill="#FFFFFF" opacity="0.65"/>
+  <rect x="54" y="89" width="26" height="9" rx="4.5" fill="#FFFFFF" opacity="0.5"/>
+</svg>
