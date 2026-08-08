@@ -52,6 +52,7 @@ The annotation on/off state is tracked separately per file: annotating one file 
 | `blameTrail.showAuthor` | `true` | Show the commit author. |
 | `blameTrail.ignoreWhitespace` | `true` | Ignore whitespace-only changes when blaming (`git blame -w`). |
 | `blameTrail.authorFormat` | `"First Name"` | One of `Initials`, `First Name`, `Last Name`, `E-mail`. If the chosen format can't be derived from the commit author's name, falls back to their e-mail — but only if it actually looks like a valid e-mail address (has an `@` and a domain). If a commit's recorded author e-mail is something like a stray placeholder value (e.g. `"password"`), it's treated as invalid and the author's name is shown instead, both in the inline annotation and the hover tooltip. |
+| `blameTrail.maxAuthorLength` | `12` | Maximum characters shown for the author field; longer names/e-mails are truncated with an ellipsis (e.g. `JOROZC44_fo…`). Since every line's author is padded to match the longest one in the file, one unusually long name would otherwise widen the whole column and push all your code to the right — this caps that regardless of how long any single name gets. The hover tooltip always shows the full, untruncated name. |
 
 These settings can be changed either from the **Settings** UI/`settings.json`, or directly from the **Annotation view** submenu checkboxes — both stay in sync.
 

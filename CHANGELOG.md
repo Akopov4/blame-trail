@@ -2,6 +2,12 @@
 
 All notable changes to the "BlameTrail" extension are documented in this file.
 
+## [1.1.0] - 2026-08-07
+
+### Fixed
+
+- **Author field no longer distorts the layout for unusually long names.** Every line's author is padded to match the longest one in the file, so a single long name or e-mail (e.g. a system username like `JOROZC44_ford`) used to widen every line's annotation and push all your code to the right. A new `blameTrail.maxAuthorLength` setting (default `12`) caps this, truncating longer values with an ellipsis regardless of how long the real name/e-mail is. The hover tooltip still always shows the full, untruncated name.
+
 ## [1.0.0] - 2026-08-06
 
 Initial release.

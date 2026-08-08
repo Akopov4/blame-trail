@@ -477,6 +477,7 @@ function buildDecorationOptions(
   const dateFormat = config.get<string>('dateFormat', 'YYYY-MM-DD');
   const showAuthor = config.get<boolean>('showAuthor', true);
   const authorFormat = config.get<string>('authorFormat', 'First Name');
+  const maxAuthorLength = config.get<number>('maxAuthorLength', 12);
 
   // First pass: compute formatted parts per line, and the widest author
   // string, so authors line up in a column.
@@ -496,7 +497,13 @@ function buildDecorationOptions(
       entry.date = formatDate(info.authorTimeSec, dateFormat);
     }
     if (showAuthor) {
-      entry.author = isUncommitted(info.hash) ? 'Uncommitted' : formatAuthorName(info.authorName, info.authorEmail, authorFormat);
+      const rawAuthor = isUncommitted(info.hash)
+        ? 'Uncommitted'
+        : formatAuthorName(info.authorName, info.authorEmail, authorFormat);
+      // Cap the length regardless of how long the real name/email is -- one
+      // outlier shouldn't be able to widen every line's annotation and shove
+      // all the code far to the right.
+      entry.author = truncate(rawAuthor, maxAuthorLength);
       if (entry.author.length > maxAuthorLen) {
         maxAuthorLen = entry.author.length;
       }
@@ -601,6 +608,16 @@ function buildDecorationOptions(
 
 // Git's placeholder commit hash for lines with uncommitted local changes.
 const UNCOMMITTED_HASH = '0'.repeat(40);
+
+function truncate(text: string, maxLen: number): string {
+  if (maxLen <= 0 || text.length <= maxLen) {
+    return text;
+  }
+  if (maxLen === 1) {
+    return '…';
+  }
+  return text.slice(0, maxLen - 1) + '…';
+}
 
 function isUncommitted(hash: string): boolean {
   return hash === UNCOMMITTED_HASH;

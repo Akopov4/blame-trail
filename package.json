@@ -2,7 +2,7 @@
   "name": "blame-trail",
   "displayName": "BlameTrail",
   "description": "BlameTrail shows git blame information (revision, date, author) inline next to code lines, driven from the line-number context menu.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "Akop4",
   "license": "MIT",
   "keywords": [
@@ -217,6 +217,12 @@
           ],
           "default": "First Name",
           "description": "How to display the commit author when 'Author' is shown. Falls back to E-mail if the selected format can't be derived from the commit author's name."
+        },
+        "blameTrail.maxAuthorLength": {
+          "type": "number",
+          "default": 12,
+          "minimum": 3,
+          "description": "Maximum number of characters shown for the author field. Longer names/e-mails are truncated with an ellipsis. This keeps a single unusually long name from widening every line's annotation and pushing all your code far to the right."
         }
       }
     }
