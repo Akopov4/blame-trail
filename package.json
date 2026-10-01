@@ -1,19 +1,11 @@
 {
   "name": "blame-trail",
   "displayName": "BlameTrail",
-  "description": "BlameTrail shows git blame information (revision, date, author) inline next to code lines, driven from the line-number context menu.",
-  "version": "1.1.0",
+  "description": "Inline git blame annotations (revision, date, author) controlled entirely from the editor's right-click menu.",
+  "version": "1.1.1",
   "publisher": "Akop4",
   "license": "MIT",
-  "keywords": [
-    "git",
-    "blame",
-    "annotate",
-    "annotation",
-    "history",
-    "author",
-    "revision"
-  ],
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/Akopov4/blame-trail.git"
@@ -29,204 +21,13 @@
     "SCM Providers",
     "Other"
   ],
-  "icon": "icon.png",
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "blameTrail.annotate",
-        "title": "Annotate with git blame"
-      },
-      {
-        "command": "blameTrail.close",
-        "title": "Close annotation"
-      },
-      {
-        "command": "blameTrail.copyRevision",
-        "title": "Copy Revision Number"
-      },
-      {
-        "command": "blameTrail.toggleRevisionOn",
-        "title": "☐ Revision"
-      },
-      {
-        "command": "blameTrail.toggleRevisionOff",
-        "title": "☑ Revision"
-      },
-      {
-        "command": "blameTrail.toggleDateOn",
-        "title": "☐ Date"
-      },
-      {
-        "command": "blameTrail.toggleDateOff",
-        "title": "☑ Date"
-      },
-      {
-        "command": "blameTrail.toggleAuthorOn",
-        "title": "☐ Author"
-      },
-      {
-        "command": "blameTrail.toggleAuthorOff",
-        "title": "☑ Author"
-      },
-      {
-        "command": "blameTrail.toggleIgnoreWhitespaceOn",
-        "title": "☐ Ignore whitespaces"
-      },
-      {
-        "command": "blameTrail.toggleIgnoreWhitespaceOff",
-        "title": "☑ Ignore whitespaces"
-      }
-    ],
-    "submenus": [
-      {
-        "id": "blameTrail.annotationView",
-        "label": "Annotation view"
-      }
-    ],
-    "menus": {
-      "editor/lineNumber/context": [
-        {
-          "command": "blameTrail.annotate",
-          "when": "!blameTrail.active",
-          "group": "1_blameTrail@1"
-        },
-        {
-          "command": "blameTrail.close",
-          "when": "blameTrail.active",
-          "group": "1_blameTrail@1"
-        },
-        {
-          "submenu": "blameTrail.annotationView",
-          "when": "blameTrail.active",
-          "group": "1_blameTrail@2"
-        },
-        {
-          "command": "blameTrail.copyRevision",
-          "when": "blameTrail.active",
-          "group": "1_blameTrail@3"
-        }
-      ],
-      "editor/context": [
-        {
-          "command": "blameTrail.close",
-          "when": "blameTrail.active",
-          "group": "1_blameTrail@1"
-        },
-        {
-          "submenu": "blameTrail.annotationView",
-          "when": "blameTrail.active",
-          "group": "1_blameTrail@2"
-        },
-        {
-          "command": "blameTrail.copyRevision",
-          "when": "blameTrail.active",
-          "group": "1_blameTrail@3"
-        }
-      ],
-      "blameTrail.annotationView": [
-        {
-          "command": "blameTrail.toggleRevisionOn",
-          "when": "!config.blameTrail.showRevision",
-          "group": "1_view@1"
-        },
-        {
-          "command": "blameTrail.toggleRevisionOff",
-          "when": "config.blameTrail.showRevision",
-          "group": "1_view@1"
-        },
-        {
-          "command": "blameTrail.toggleDateOn",
-          "when": "!config.blameTrail.showDate",
-          "group": "1_view@2"
-        },
-        {
-          "command": "blameTrail.toggleDateOff",
-          "when": "config.blameTrail.showDate",
-          "group": "1_view@2"
-        },
-        {
-          "command": "blameTrail.toggleAuthorOn",
-          "when": "!config.blameTrail.showAuthor",
-          "group": "1_view@3"
-        },
-        {
-          "command": "blameTrail.toggleAuthorOff",
-          "when": "config.blameTrail.showAuthor",
-          "group": "1_view@3"
-        },
-        {
-          "command": "blameTrail.toggleIgnoreWhitespaceOn",
-          "when": "!config.blameTrail.ignoreWhitespace",
-          "group": "1_view@4"
-        },
-        {
-          "command": "blameTrail.toggleIgnoreWhitespaceOff",
-          "when": "config.blameTrail.ignoreWhitespace",
-          "group": "1_view@4"
-        }
-      ]
-    },
-    "configuration": {
-      "title": "BlameTrail",
-      "properties": {
-        "blameTrail.showRevision": {
-          "type": "boolean",
-          "default": false,
-          "description": "Show the commit revision (short hash) in the blame annotation."
-        },
-        "blameTrail.showDate": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show the commit date in the blame annotation."
-        },
-        "blameTrail.dateFormat": {
-          "type": "string",
-          "enum": [
-            "YYYY-MM-DD",
-            "YYYY/MM/DD",
-            "MM/DD/YYYY",
-            "MM-DD-YYYY"
-          ],
-          "enumDescriptions": [
-            "ISO format with dashes, e.g. 2024-01-31",
-            "ISO format with slashes, e.g. 2024/01/31",
-            "American format with slashes, e.g. 01/31/2024",
-            "American format with dashes, e.g. 01-31-2024"
-          ],
-          "default": "YYYY-MM-DD",
-          "description": "How to format the commit date when 'Date' is shown."
-        },
-        "blameTrail.showAuthor": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show the commit author in the blame annotation."
-        },
-        "blameTrail.ignoreWhitespace": {
-          "type": "boolean",
-          "default": true,
-          "description": "Ignore whitespace changes when computing blame (equivalent to 'git blame -w')."
-        },
-        "blameTrail.authorFormat": {
-          "type": "string",
-          "enum": [
-            "Initials",
-            "First Name",
-            "Last Name",
-            "E-mail"
-          ],
-          "default": "First Name",
-          "description": "How to display the commit author when 'Author' is shown. Falls back to E-mail if the selected format can't be derived from the commit author's name."
-        },
-        "blameTrail.maxAuthorLength": {
-          "type": "number",
-          "default": 12,
-          "minimum": 3,
-          "description": "Maximum number of characters shown for the author field. Longer names/e-mails are truncated with an ellipsis. This keeps a single unusually long name from widening every line's annotation and pushing all your code far to the right."
-        }
-      }
-    }
-  },
+  "keywords": [
+    "git",
+    "blame",
+    "annotate",
+    "history",
+    "author"
+  ],
   "activationEvents": [
     "onCommand:blameTrail.annotate",
     "onCommand:blameTrail.close",
@@ -240,6 +41,92 @@
     "onCommand:blameTrail.toggleIgnoreWhitespaceOn",
     "onCommand:blameTrail.toggleIgnoreWhitespaceOff"
   ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "blameTrail.annotate", "title": "Annotate with git blame" },
+      { "command": "blameTrail.close", "title": "Close Annotation" },
+      { "command": "blameTrail.copyRevision", "title": "Copy Revision Number" },
+      { "command": "blameTrail.toggleRevisionOn", "title": "☐ Revision" },
+      { "command": "blameTrail.toggleRevisionOff", "title": "☑ Revision" },
+      { "command": "blameTrail.toggleDateOn", "title": "☐ Date" },
+      { "command": "blameTrail.toggleDateOff", "title": "☑ Date" },
+      { "command": "blameTrail.toggleAuthorOn", "title": "☐ Author" },
+      { "command": "blameTrail.toggleAuthorOff", "title": "☑ Author" },
+      { "command": "blameTrail.toggleIgnoreWhitespaceOn", "title": "☐ Ignore Whitespaces" },
+      { "command": "blameTrail.toggleIgnoreWhitespaceOff", "title": "☑ Ignore Whitespaces" }
+    ],
+    "submenus": [
+      { "id": "blameTrail.annotationView", "label": "Annotation view" }
+    ],
+    "menus": {
+      "editor/lineNumber/context": [
+        { "command": "blameTrail.annotate", "when": "!blameTrail.active", "group": "blameTrail@1" },
+        { "command": "blameTrail.close", "when": "blameTrail.active", "group": "blameTrail@1" },
+        { "submenu": "blameTrail.annotationView", "when": "blameTrail.active", "group": "blameTrail@2" },
+        { "command": "blameTrail.copyRevision", "when": "blameTrail.active", "group": "blameTrail@3" }
+      ],
+      "editor/context": [
+        { "command": "blameTrail.annotate", "when": "!blameTrail.active", "group": "blameTrail@1" },
+        { "command": "blameTrail.close", "when": "blameTrail.active", "group": "blameTrail@1" },
+        { "submenu": "blameTrail.annotationView", "when": "blameTrail.active", "group": "blameTrail@2" },
+        { "command": "blameTrail.copyRevision", "when": "blameTrail.active", "group": "blameTrail@3" }
+      ],
+      "blameTrail.annotationView": [
+        { "command": "blameTrail.toggleRevisionOn", "when": "!config.blameTrail.showRevision", "group": "1" },
+        { "command": "blameTrail.toggleRevisionOff", "when": "config.blameTrail.showRevision", "group": "1" },
+        { "command": "blameTrail.toggleDateOn", "when": "!config.blameTrail.showDate", "group": "1" },
+        { "command": "blameTrail.toggleDateOff", "when": "config.blameTrail.showDate", "group": "1" },
+        { "command": "blameTrail.toggleAuthorOn", "when": "!config.blameTrail.showAuthor", "group": "1" },
+        { "command": "blameTrail.toggleAuthorOff", "when": "config.blameTrail.showAuthor", "group": "1" },
+        { "command": "blameTrail.toggleIgnoreWhitespaceOn", "when": "!config.blameTrail.ignoreWhitespace", "group": "2" },
+        { "command": "blameTrail.toggleIgnoreWhitespaceOff", "when": "config.blameTrail.ignoreWhitespace", "group": "2" }
+      ]
+    },
+    "configuration": {
+      "title": "BlameTrail",
+      "properties": {
+        "blameTrail.showRevision": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show the revision (commit hash) in the inline blame annotation."
+        },
+        "blameTrail.showDate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the commit date in the inline blame annotation."
+        },
+        "blameTrail.dateFormat": {
+          "type": "string",
+          "enum": ["YYYY-MM-DD", "YYYY/MM/DD", "MM/DD/YYYY", "MM-DD-YYYY"],
+          "default": "YYYY-MM-DD",
+          "description": "Date format used in the inline blame annotation and the hover tooltip."
+        },
+        "blameTrail.showAuthor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the author in the inline blame annotation."
+        },
+        "blameTrail.authorFormat": {
+          "type": "string",
+          "enum": ["Initials", "First Name", "Last Name", "E-mail"],
+          "default": "First Name",
+          "description": "How the author is displayed in the inline blame annotation. Falls back to e-mail (or name) when the chosen format can't be derived."
+        },
+        "blameTrail.maxAuthorLength": {
+          "type": "number",
+          "default": 12,
+          "minimum": 3,
+          "description": "Maximum number of characters shown for the author field before truncating with an ellipsis."
+        },
+        "blameTrail.ignoreWhitespace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ignore whitespace changes when computing git blame (-w)."
+        }
+      }
+    }
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
@@ -250,7 +137,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.90.0",
-    "@vscode/vsce": "^3.9.2",
+    "@vscode/vsce": "^2.26.0",
     "typescript": "^5.4.0"
   }
 }
